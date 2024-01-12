@@ -7,13 +7,9 @@ pipeline {
                git branch: 'main', credentialsId: 'jenkins-token', url: 'https://github.com/bitman26/AWS-Terraform.git'   
             }
         }
-        stage('Terraform init') {
+        stage('Terraform Deploy') {
             steps {
-                withCredentials([[
-                    $class: 'com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding',
-                    creditialsId: 'jekins-aws',
-                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                withCredentials([<object of type com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding>]) {
 
                         sh 'terraform init'
                         sh 'terraform ${action}  --auto-approve'
