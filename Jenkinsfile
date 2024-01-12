@@ -9,8 +9,8 @@ pipeline {
         }
         stage('Executando Automacao Terraform') {
             environment {
-                AWS_SECRET_ACCESS_KEY = credentialsId: 'AWS_SECRET_ACCESS_KEY'
-                AWS_ACCESS_KEY_ID = credentialsId: 'AWS_ACCESS_KEY_ID'
+                AWS_SECRET_ACCESS_KEY = credentialsId {'AWS_SECRET_ACCESS_KEY'}
+                AWS_ACCESS_KEY_ID = credentialsId {'AWS_ACCESS_KEY_ID'}
             }
             steps {
                 sh 'terraform init'
