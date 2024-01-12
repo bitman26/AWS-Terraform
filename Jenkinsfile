@@ -12,12 +12,6 @@ pipeline {
                 withAWS(credentials: 'jekins-aws' ) {
                     sh 'aws iam get-user'
                 }
-                sh 'terraform init'
-            }
-        }
-        stage('Terraform Deploy') {
-            steps {
-                 sh 'terraform ${action}  --auto-approve'
             }
         }
     
