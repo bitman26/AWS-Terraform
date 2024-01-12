@@ -8,10 +8,9 @@ pipeline {
             }
         }
         stage('Terraform init') {
-   #          environment {
-     #           AWS_SECRET_ACCESS_KEY = credentialsId {'AWS_SECRET_ACCESS_KEY'}
-      #          AWS_ACCESS_KEY_ID = credentialsId {'AWS_ACCESS_KEY_ID'}
-       #     }
+            withAWS(credentials: 'jekins-aws' ) {
+            sh 'aws iam get-user'
+        }
             steps {
                 sh 'terraform init'
             }
