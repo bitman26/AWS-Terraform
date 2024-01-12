@@ -11,7 +11,7 @@ pipeline {
             steps {
                 withCredentials([[
                     $class: 'com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding',
-                    crenditialsId: 'jekins-aws',
+                    creditialsId: 'jekins-aws',
                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
 
