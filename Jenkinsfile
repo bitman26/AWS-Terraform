@@ -21,7 +21,7 @@ pipeline {
             steps {
                  sh 'terraform ${action}  --auto-approve'
             }
-        }
-     }
+         }
+      }
    } 
 }
