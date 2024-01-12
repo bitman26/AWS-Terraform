@@ -13,7 +13,7 @@ provider "aws" {
   }
 
   resource "aws_s3_bucket" "example" {
-  bucket = "bit-bucket3"
+  bucket = "jenkins-bucket"
 
   tags = {
     Name        = "My bucket"
