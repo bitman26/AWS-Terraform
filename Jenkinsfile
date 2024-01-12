@@ -8,10 +8,10 @@ pipeline {
             }
         }
         stage('Terraform init') {
-            withAWS(credentials: 'jekins-aws' ) {
-            sh 'aws iam get-user'
-            }
             steps {
+                withAWS(credentials: 'jekins-aws' ) {
+                    sh 'aws iam get-user'
+                }
                 sh 'terraform init'
             }
         }
