@@ -9,8 +9,8 @@ pipeline {
         }
         stage('Terraform init') {
             steps {
-                withAWS(credentials: 'jekins-aws' ) {
-                    sh 'aws iam get-user'
+                withCredentials([<object of type com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding>]) {
+                // some block
                 }
             }
         }
