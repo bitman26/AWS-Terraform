@@ -10,7 +10,7 @@ pipeline {
         stage('Terraform init') {
             steps {
                 withCredentials([[
-                    $class: 'AmazonWebServicesCredentialsBinding',
+                    $class: 'com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding',
                     crenditialsId: 'jekins-aws',
                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
