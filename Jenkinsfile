@@ -8,9 +8,10 @@ pipeline {
             }
         }
         stage('Executando Automacao Terraform') {
-           withCredentials([<object of type com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding>]) {
-    // some block
-}
+            environment {
+                AWS_ACCESS_KEY_ID = credentialsId{'AWS_ACCESS_KEY_ID'}
+                AWS_SECRET_ACCESS_KEY = credentialsId{'AWS_SECRET_ACCESS_KEY'}
+            }
             steps {
                 sh 'terraform init'
                 sh 'terraform ${action}  --auto-approve'
