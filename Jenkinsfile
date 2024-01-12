@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Terraform Deploy') {
             steps {
-                withCredentials(com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding) {
+                withAWS(credentials: 'jekins-aws') {
 
                         sh 'terraform init'
                         sh 'terraform ${action}  --auto-approve'
