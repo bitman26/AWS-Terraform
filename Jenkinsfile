@@ -14,6 +14,10 @@ pipeline {
                 }
              }
         }
-    }
+        stage('Terraform Output') {
+            steps {
+                sh "terraform show output.tf" >> ./ansible/hosts
+  
+             }
     
 } 

@@ -7,23 +7,6 @@
   }
 }
 
-resource "aws_vpc" "terraform-vpc" {
-    cidr_block = var.vpc-range
-
-  tags = {
-    Name = "terraform-vpc"
-  }
-}
-
-resource "aws_subnet" "terraform-subnet-01" {
-  vpc_id            = aws_vpc.terraform-vpc.id
-  cidr_block        = var.vpc-range
-
-  tags = {
-    Name = "terraform-subnet-01"
-  }
-}
-
 
 resource "aws_instance" "ec2" {
   ami           = "ami-0c0746ac7168488ae"
@@ -34,10 +17,5 @@ resource "aws_instance" "ec2" {
   tags = {
     Name = "terraform-debian-01"
   }
-}
-
-resource "aws_eip" "lb" {
-  instance = aws_instance.ec2.id
-  domain   = aws_vpc.terraform-vpc.id
 }
 
