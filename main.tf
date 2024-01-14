@@ -13,9 +13,12 @@ resource "aws_instance" "ec2" {
   instance_type = "t3.micro"
   subnet_id     = aws_subnet.terraform-subnet-01.id
   key_name      = "jenkins"
-
   tags = {
     Name = "terraform-debian-01"
   }
+  vpc_security_group_ids = [ "${aws_security_group.terraform-sg.id}" ]
+  depends_on = [
+    aws_security_group.terraform-sg
+  ]
 }
 

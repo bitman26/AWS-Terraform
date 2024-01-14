@@ -1,3 +1,3 @@
-output "address_elastic_ip" {
-    value = aws_eip.eip_terraform-ec2.id
+output "aws_eip" {
+    value = aws_eip.eip_terraform-ec2.public_ip
 }
