@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Terraform Output') {
             steps {
-                sh "terraform show output.tf" >> ./ansible/hosts
+                sh "terraform output aws_eip" >> ./ansible/hosts
   
              }
     
