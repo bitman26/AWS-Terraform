@@ -2,3 +2,4 @@
 .terraform/providers/registry.terraform.io/hashicorp/aws/5.32.0/linux_amd64/terraform-provider-aws_v5.32.0_x5
 terraform.tfstate
 terraform.tfstate.backup
+ansible/ssh_key/jenkins.pem

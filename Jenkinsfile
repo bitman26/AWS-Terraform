@@ -14,10 +14,28 @@ pipeline {
                 }
              }
         }
-        stage('Terraform Output') {
+        stage('Terraform Output > Ansible') {
             steps {
-                sh "terraform output aws_eip" >> ./ansible/hosts
-  
+                script {
+                    if (${action} == 'apply') {
+                        sh "terraform output aws_eip | sed -e 's/\"//g' >> ./ansible/hosts"
+                    }   else {
+                            exit
+                         }
+                }
              }
-    
-} 
+        }
+        stage('Ansible Provisioning') {
+            steps {
+                script {
+                    if (${action} == 'apply'){
+                        sh "cd ./ansible"
+                        ansiblePlaybook installation: 'ansible', inventory: 'inventory/webservers', playbook: 'playbook/webservers.yml', extras: '--extra-vars "password=${password} "'
+                    }   else {
+                            exit
+                        }
+                }
+            }
+        }
+    } 
+}

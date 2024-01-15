@@ -1,0 +1,23 @@
+---
+- name: "WebServers"
+  hosts: webservers
+  become: True
+  become_method: sudo
+  remote_user: admin
+  vars: 
+      ansible_private_key_file: "ssh_key/jenkins.pem"
+  gather_facts: True
+  
+  tasks:
+  - name: "Aplicando Update"
+    apt:
+      upgrade: yes
+      update_cache: yes
+
+  - name: "Aplicando Update"
+    apt:
+      pkg:
+      - docker
+      - docker-compose-plugin
+
+      
