@@ -1,0 +1,59 @@
+---
+- name: "WebServers"
+  hosts: webservers
+  become: True
+  become_method: sudo
+  remote_user: admin
+  vars: 
+      ansible_private_key_file: "ssh_key/jenkins.pem"
+  gather_facts: True
+  
+  tasks:
+   - name: "Aplicando Update"
+     apt:
+        upgrade: yes
+        update_cache: yes
+
+   - name: "Instalando Dependencias"
+     apt:
+        pkg:
+          - ca-certificates 
+          - curl 
+          - gnupg
+
+   - name: "Configurando Docker"
+     shell: |
+        install -m 0755 -d /etc/apt/keyrings
+        curl -fsSL https://download.docker.com/linux/debian/gpg |  gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+        chmod a+r /etc/apt/keyrings/docker.gpg 
+        echo \
+        "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+        $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+        sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+        
+   - name: "Aplicando Novos  Update"
+     apt:
+        upgrade: yes
+        update_cache: yes
+
+   - name: "Instalando Dependencias"
+     apt:
+        pkg:
+          - docker-ce 
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+
+   - name: "Copiando configurações do Docker"
+     copy: 
+        src: /home/teste/AWS-Terraform/docker
+        dest: /home/admin/
+        owner: admin
+        group: admin
+        mode: 0644
+
+   - name: "Provisionando Apache-Docker" 
+     ansible.builtin.shell:
+        chdir: /home/admin/docker
+        cmd: docker-compose up -d
