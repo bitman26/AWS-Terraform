@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment { 
-        action = '${action}'
+        action2 = '${action}'
     }
     stages {
         stage('GIT Stage') {
@@ -14,7 +14,7 @@ pipeline {
                 dir("terraform") { 
                     withAWS(credentials: 'jekins-aws') {
                             sh 'terraform init'
-                            sh 'terraform env.action  --auto-approve'
+                            sh 'terraform env.action2  --auto-approve'
                     }
                 }
             } 
@@ -22,7 +22,7 @@ pipeline {
         stage('Terraform Output > Ansible') {
             steps {
                 script {
-                    if (env.action == 'apply') {
+                    if (env.action2 == 'apply') {
                         dir("terraform") { 
                             sh "terraform output aws_eip | sed -e 's/\"//g' >> /var/lib/jenkins/workspace/AWS-Provisioning/ansible/inventory/webservers"                  
                         }
@@ -36,7 +36,7 @@ pipeline {
         stage('Ansible Provisioning') {
             steps {
                 script {
-                    if (env.action == 'apply'){
+                    if (env.action2 == 'apply'){
                             dir("ansible") { 
                                  ansiblePlaybook credentialsId: 'ssh-aws', installation: 'ansible', inventory: 'inventory/webservers', playbook: 'playbook/webservers.yml'
                             }              
