@@ -24,9 +24,9 @@ pipeline {
                             dir("ansible") { 
                                  ansiblePlaybook credentialsId: 'ssh-aws', installation: 'ansible', inventory: 'inventory/webservers', playbook: 'playbook/webservers.yml'
                             }              
-                    }  else {
+                    }   else {
                             exit
-                       }
+                    }
                 }
             }
         }
