@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment { 
+        action = '${action}'
+    }
     stages {
         stage('GIT Stage') {
             steps {
@@ -33,7 +36,7 @@ pipeline {
         stage('Ansible Provisioning') {
             steps {
                 script {
-                    if ('${action}' == 'apply'){
+                    if (env.action == 'apply'){
                             dir("ansible") { 
                                  ansiblePlaybook credentialsId: 'ssh-aws', installation: 'ansible', inventory: 'inventory/webservers', playbook: 'playbook/webservers.yml'
                             }              
