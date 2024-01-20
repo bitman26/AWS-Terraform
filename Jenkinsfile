@@ -22,7 +22,7 @@ pipeline {
                         sh "terraform output aws_eip | sed -e 's/\"//g' >> ./ansible/hosts"
                     }   else {
                             exit
-                         }
+                        }
                 }
              }
         }
