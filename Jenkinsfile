@@ -20,7 +20,7 @@ pipeline {
         stage('Ansible Provisioning') {
             steps {
                 script {
-                    if (${action} == 'apply'){
+                    if ('${action}' == 'apply'){
                             dir("ansible") { 
                                  ansiblePlaybook credentialsId: 'ssh-aws', installation: 'ansible', inventory: 'inventory/webservers', playbook: 'playbook/webservers.yml'
                             }              
