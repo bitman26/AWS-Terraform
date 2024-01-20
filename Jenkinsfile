@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment { 
-        action2 = '${action}'
+        action2 = "${action}"
     }
     stages {
         stage('GIT Stage') {
@@ -14,7 +14,7 @@ pipeline {
                 dir("terraform") { 
                     withAWS(credentials: 'jekins-aws') {
                             sh 'terraform init'
-                            sh 'terraform env.action2  --auto-approve'
+                            sh 'terraform "${action}"  --auto-approve'
                     }
                 }
             } 
