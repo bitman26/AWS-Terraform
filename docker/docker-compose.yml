@@ -3,4 +3,5 @@ services:
     webserver:
         build: .
         image: webserver:1.0
-        ports: "80:80"
+        ports: 
+         -"80:80"
