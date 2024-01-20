@@ -25,7 +25,7 @@ pipeline {
                         }
 
                     }   else {
-                            exit
+                           echo "exit"
                     }
                 }
             }
@@ -38,7 +38,7 @@ pipeline {
                                 ansiblePlaybook credentialsId: 'ssh-aws', installation: 'ansible', inventory: 'inventory/webservers', playbook: 'playbooks/webservers.yml'
                             }              
                     }   else {
-                            exit
+                          echo "exit"
                     }
                 }
             }
