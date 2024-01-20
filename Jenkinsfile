@@ -2,7 +2,7 @@ pipeline {
     stages {
         stage('GIT Stage') {
             steps {
-               git branch: 'main', credentialsId: 'jenkins-token', url: 'https://github.com/bitman26/AWS-Terraform.git'   
+               git branch: 'jenkins_test', credentialsId: 'jenkins-token', url: 'https://github.com/bitman26/AWS-Terraform.git'   
             }
         }
         stage('Terraform Deploy') {
