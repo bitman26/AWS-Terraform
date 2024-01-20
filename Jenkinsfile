@@ -22,7 +22,7 @@ pipeline {
         stage('Terraform Output > Ansible') {
             steps {
                 script {
-                    if ('${action}' == 'apply') {
+                    if (env.action == 'apply') {
                         dir("terraform") { 
                             sh "terraform output aws_eip | sed -e 's/\"//g' >> /var/lib/jenkins/workspace/AWS-Provisioning/ansible/inventory/webservers"                  
                         }
