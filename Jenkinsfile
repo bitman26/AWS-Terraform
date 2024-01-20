@@ -1,4 +1,5 @@
 pipeline {
+    agente any
     stages {
         stage('GIT Stage') {
             steps {
