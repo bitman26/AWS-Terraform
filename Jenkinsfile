@@ -8,12 +8,13 @@ pipeline {
         }
         stage('Terraform Deploy') {
             steps {
-                sh 'cd terraform'
-                withAWS(credentials: 'jekins-aws') {
-                        sh 'terraform init'
-                        sh 'terraform ${action}  --auto-approve'
+                dir("terraform") { 
+                    withAWS(credentials: 'jekins-aws') {
+                            sh 'terraform init'
+                            sh 'terraform ${action}  --auto-approve'
+                    }
                 }
-             }
+            } 
         }
         stage('Terraform Output > Ansible') {
             steps {
@@ -30,11 +31,12 @@ pipeline {
             steps {
                 script {
                     if (${action} == 'apply'){
-                        sh "cd /var/lib/jenkins/workspace/ansible"
-                        ansiblePlaybook credentialsId: 'ssh-aws', installation: 'ansible', inventory: 'playbook/webservers.yml', playbook: 'inventory/webservers'
-                    }   else {
+                            dir("ansible") { 
+                                 ansiblePlaybook credentialsId: 'ssh-aws', installation: 'ansible', inventory: 'playbook/webservers.yml', playbook: 'inventory/webservers'
+                            }              
+                    }  else {
                             exit
-                        }
+                       }
                 }
             }
         }
