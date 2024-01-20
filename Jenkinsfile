@@ -32,7 +32,7 @@ pipeline {
                     if (${action} == 'apply'){
                         sh "cd .."
                         sh "cd ./ansible"
-                        ansiblePlaybook installation: 'ansible', inventory: 'inventory/webservers', playbook: 'playbook/webservers.yml', extras: '--extra-vars "password=${password} "'
+                        ansiblePlaybook credentialsId: 'ssh-aws', installation: 'ansible', inventory: 'playbook/webservers.yml', playbook: 'inventory/webservers'
                     }   else {
                             exit
                         }
