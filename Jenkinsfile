@@ -32,7 +32,7 @@ pipeline {
                 script {
                     if (${action} == 'apply'){
                             dir("ansible") { 
-                                 ansiblePlaybook credentialsId: 'ssh-aws', installation: 'ansible', inventory: 'playbook/webservers.yml', playbook: 'inventory/webservers'
+                                 ansiblePlaybook credentialsId: 'ssh-aws', installation: 'ansible', inventory: 'inventory/webservers', playbook: 'playbook/webservers.yml'
                             }              
                     }  else {
                             exit
