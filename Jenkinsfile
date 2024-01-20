@@ -22,7 +22,7 @@ pipeline {
         stage('Terraform Output > Ansible') {
             steps {
                 script {
-                    if (env.action2 == 'apply') {
+                    if ("${action}" == 'apply') {
                         dir("terraform") { 
                             sh "terraform output aws_eip | sed -e 's/\"//g' >> /var/lib/jenkins/workspace/AWS-Provisioning/ansible/inventory/webservers"                  
                         }
@@ -36,9 +36,9 @@ pipeline {
         stage('Ansible Provisioning') {
             steps {
                 script {
-                    if (env.action2 == 'apply'){
-                            dir("ansible") { 
-                                 ansiblePlaybook credentialsId: 'ssh-aws', installation: 'ansible', inventory: 'inventory/webservers', playbook: 'playbook/webservers.yml'
+                    if ("${action}" == 'apply'){
+                            dir("/var/lib/jenkins/workspace/AWS-Provisioning/ansible/") { 
+                                ansiblePlaybook credentialsId: 'ssh-aws', installation: 'ansible', inventory: 'inventory/webservers', playbook: 'playbook/webservers.yml'
                             }              
                     }   else {
                             exit
