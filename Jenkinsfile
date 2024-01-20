@@ -21,7 +21,7 @@ pipeline {
                 script {
                     if (${action} == 'apply') {
                         dir("terraform") { 
-                            sh "terraform output aws_eip | sed -e 's/\"//g' >> ./var/lib/jenkins/workspace/AWS-Provisioning/ansible/inventory/webservers"
+                            sh "terraform output aws_eip | sed -e 's/\"//g' >> /var/lib/jenkins/workspace/AWS-Provisioning/ansible/inventory/webservers"
                         }
 
                     }   else {
