@@ -45,7 +45,7 @@
 
    - name: "Copiando configurações do Docker"
      copy: 
-        src: /home/teste/AWS-Terraform/docker
+        src: /var/lib/jenkins/workspace/AWS-Provisioning/ansible/docker
         dest: /home/admin/
         owner: admin
         group: admin
