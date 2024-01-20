@@ -44,13 +44,13 @@ resource "aws_security_group" "terraform-sg" {
 
 resource "aws_vpc_security_group_ingress_rule" "terraform-sg-ingress_rule" {
   security_group_id = aws_security_group.terraform-sg.id
-  cidr_ipv4         = var.my-ip
+  cidr_ipv4         = var.default-route
   ip_protocol       = "-1"
 }
 
 resource "aws_vpc_security_group_egress_rule" "terraform-sg-egress_rule" {
   security_group_id = aws_security_group.terraform-sg.id
-  cidr_ipv4         = var.my-ip
+  cidr_ipv4         = var.default-route
   ip_protocol       = "-1" 
 }
 
