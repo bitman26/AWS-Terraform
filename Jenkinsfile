@@ -14,7 +14,7 @@ pipeline {
                 dir("terraform") { 
                     withAWS(credentials: 'jekins-aws') {
                             sh 'terraform init'
-                            sh 'terraform ${action}  --auto-approve'
+                            sh 'terraform env.action  --auto-approve'
                     }
                 }
             } 
