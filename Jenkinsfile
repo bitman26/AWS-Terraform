@@ -8,7 +8,6 @@ pipeline {
         }
         stage('Terraform Deploy') {
             steps {
- #               sh "cd /var/lib/jenkins/workspace/AWS-Provisioning/terraform"
                 withAWS(credentials: 'jekins-aws') {
 
                         sh 'terraform init'
