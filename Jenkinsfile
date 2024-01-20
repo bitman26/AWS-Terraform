@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Terraform Deploy') {
             steps {
-                sh "cd ./AWS-Provisioning/terraform"
+                sh "cd /var/lib/jenkins/workspace/AWS-Provisioning/terraform"
                 withAWS(credentials: 'jekins-aws') {
 
                         sh 'terraform init'
@@ -31,8 +31,7 @@ pipeline {
             steps {
                 script {
                     if (${action} == 'apply'){
-                        sh "cd .."
-                        sh "cd ./AWS-Provisioning/ansible"
+                        sh "cd /var/lib/jenkins/workspace/ansible"
                         ansiblePlaybook credentialsId: 'ssh-aws', installation: 'ansible', inventory: 'playbook/webservers.yml', playbook: 'inventory/webservers'
                     }   else {
                             exit
