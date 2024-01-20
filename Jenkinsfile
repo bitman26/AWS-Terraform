@@ -8,8 +8,8 @@ pipeline {
         }
         stage('Terraform Deploy') {
             steps {
+                sh 'cd terraform'
                 withAWS(credentials: 'jekins-aws') {
-                        sh 'cd terraform'
                         sh 'terraform init'
                         sh 'terraform ${action}  --auto-approve'
                 }
