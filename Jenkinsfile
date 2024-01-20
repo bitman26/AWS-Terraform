@@ -12,10 +12,23 @@ pipeline {
                     withAWS(credentials: 'jekins-aws') {
                             sh 'terraform init'
                             sh 'terraform ${action}  --auto-approve'
-                            sh "terraform output aws_eip | sed -e 's/\"//g' >> /var/lib/jenkins/workspace/AWS-Provisioning/ansible/inventory/webservers"
                     }
                 }
             } 
+        }
+        stage('Terraform Output > Ansible') {
+            steps {
+                script {
+                    if (${action} == 'apply') {
+                        dir("terraform") { 
+                            sh "terraform output aws_eip | sed -e 's/\"//g' >> /var/lib/jenkins/workspace/AWS-Provisioning/ansible/inventory/webservers"                  
+                        }
+
+                    }   else {
+                            exit
+                    }
+                }
+            }
         }
         stage('Ansible Provisioning') {
             steps {
