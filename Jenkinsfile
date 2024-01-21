@@ -20,10 +20,12 @@ pipeline {
             steps {
                 script {
                     if ("${action}" == 'apply') {
+                        dir("terraform") { 
                             withAWS(credentials: 'jekins-aws') {
                                 sh "terraform output aws_eip | sed -e 's/\"//g' >> /var/lib/jenkins/workspace/AWS-Provisioning/ansible/inventory/webservers"                  
                             }
-                    }   else {
+                        }   
+                   } else {
                            echo "exit"
                     }
                 }
