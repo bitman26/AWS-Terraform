@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Terraform Deploy') {
             steps {
-                dir("terraform") { 
+                dir("WebServer/terraform") { 
                     withAWS(credentials: 'jekins-aws') {
                             sh 'terraform init'
                             sh 'terraform "${action}"  --auto-approve'
@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                     if ("${action}" == 'apply') {
-                        dir("terraform") { 
+                        dir("WebServer/terraform") { 
                             withAWS(credentials: 'jekins-aws') {
                                 sh "terraform output aws_eip | sed -e 's/\"//g' >> /var/lib/jenkins/workspace/AWS-Provisioning/ansible/inventory/webservers"                  
                             }
@@ -36,7 +36,7 @@ pipeline {
                 script {
                     sleep(10)
                     if ("${action}" == 'apply'){
-                            dir("ansible") {  
+                            dir("WebServer/ansible") {  
                                 ansiblePlaybook credentialsId: 'ssh-aws', installation: 'ansible', inventory: 'inventory/webservers', playbook: 'playbooks/webservers.yml'
                             }              
                     }   else {
