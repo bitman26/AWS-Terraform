@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Terraform Deploy') {
             steps {
-                dir("Network/terraform") { 
+                dir("Network") { 
                     withAWS(credentials: 'jenkins-aws') {
                             sh 'terraform init'
                             sh 'terraform "${action}"  --auto-approve'
