@@ -55,6 +55,5 @@ resource "aws_vpc_security_group_egress_rule" "terraform-sg-egress_rule" {
 }
 
 resource "aws_eip" "eip_terraform-ec2" {
-  instance = aws_instance.ec2.id
   domain   = "vpc"
 }
