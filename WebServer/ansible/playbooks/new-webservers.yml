@@ -1,0 +1,68 @@
+- name: "WebServers"
+  hosts: webservers
+  become: True
+  become_method: sudo
+  remote_user: admin
+  gather_facts: True
+  
+  tasks:
+    - name: "Configurando Docker"
+      apt_key:
+        url: https://download.docker.com/linux/debian/gpg
+        state: present
+      become: yes
+      become_method: sudo
+      when: ansible_os_family == 'Debian' and docker_repository.stat.exists == False
+
+    - name: "Adicionando repositório do Docker"
+      apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+        state: present
+      become: yes
+      become_method: sudo
+      when: ansible_os_family == 'Debian' and docker_repository.stat.exists == False
+
+    - name: "Verificando se os pacotes do Docker já estão instalados"
+      ansible.builtin.stat:
+        path: /usr/bin/docker
+      register: docker_installed
+      become: yes
+      become_method: sudo
+      when: ansible_os_family == 'Debian'
+
+    - name: "Aplicando Update"
+      apt:
+        upgrade: yes
+        update_cache: yes
+      become: yes
+      become_method: sudo
+      when: ansible_os_family == 'Debian'
+
+    - name: "Instalando Dependências"
+      apt:
+        pkg:
+          - ca-certificates 
+          - curl 
+          - gnupg
+          - docker-ce 
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+          - docker-compose
+      become: yes
+      become_method: sudo
+      when: ansible_os_family == 'Debian' and docker_installed.stat.exists == False
+
+    - name: "Copiando configurações do Docker"
+      copy: 
+        src: "/var/jenkins_home/workspace/AWS-Services/WebServer/docker"
+        dest: /home/admin/
+        owner: admin
+        group: admin
+        mode: 0644
+
+    - name: "Provisionando Apache-Docker" 
+      command: "docker-compose up -d"
+      args:
+        chdir: /home/admin/docker
