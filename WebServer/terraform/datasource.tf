@@ -4,12 +4,14 @@ data "aws_s3_bucket" "tfstate-bucket" {
 
 data "aws_subnet" "terraform-subnet" {
  filter {
-    name = "terraform-subnet-01"
+    name = "tag:Name"
+    values = ["terraform-subnet-01"]
   }  
 }
 
 data "aws_security_group" "sg-terraform" {
  filter {
-    name = "terraform-sg"
+    name = "tag:Name"
+    values = ["terraform-sg"]
   }  
 }
