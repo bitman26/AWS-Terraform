@@ -25,4 +25,7 @@ resource "aws_instance" "ec2" {
 resource "aws_eip_association" "associacao_eip" {
   instance_id   = aws_instance.ec2.id
   allocation_id = data.aws_eip.eip_terraform-ec2.id
+  depends_on = [
+    aws_instance.ec2
+  ]
 }
