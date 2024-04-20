@@ -37,7 +37,7 @@ pipeline {
                     sleep(10)
                     if ("${action}" == 'apply'){
                             dir("WebServer/ansible") {  
-                                ansiblePlaybook( credentialsId: 'jenkins-token', installation: 'ansible', inventory: 'inventory/webservers', playbook: 'playbooks/webservers.yml')
+                                ansiblePlaybook( credentialsId: 'jenkins-token', installation: 'ansible', inventory: 'inventory/new-webservers', playbook: 'playbooks/webservers.yml')
                             }              
                     }   else {
                           echo "exit"
