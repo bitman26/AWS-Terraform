@@ -47,7 +47,7 @@
 
    - name: "Copiando configurações do Docker"
      copy: 
-        src: /var/lib/jenkins/workspace/AWS-Provisioning/docker
+        src: ${JENKINS_HOME}/workspace/${JOB_NAME}/docker
         dest: /home/admin/
         owner: admin
         group: admin
