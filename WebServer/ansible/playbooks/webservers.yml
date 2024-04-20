@@ -47,7 +47,7 @@
 
    - name: "Copiando configurações do Docker"
      copy: 
-        src: ${JENKINS_HOME}/workspace/${JOB_NAME}/WebServer/docker
+        src: "{{ jenkins_workspace }}/WebServer/docker"
         dest: /home/admin/
         owner: admin
         group: admin
