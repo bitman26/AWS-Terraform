@@ -37,7 +37,7 @@ pipeline {
                     sleep(10)
                     if ("${action}" == 'apply'){
                             dir("WebServer/ansible") {  
-                                ansiblePlaybook( credentialsId: 'jenkins-token', installation: 'ansible', inventory: 'inventory/webservers', playbook: 'playbooks/new-webservers.yml', extras: '--extra-vars "JENKINS_HOME=${JENKINS_HOME} JOB_NAME=${JOB_NAME}"' )
+                                ansiblePlaybook( credentialsId: 'jenkins-token', installation: 'ansible', inventory: 'inventory/webservers', playbook: 'playbooks/webservers.yml', extras: '--extra-vars "JENKINS_HOME=${JENKINS_HOME} JOB_NAME=${JOB_NAME}"' )
                             }              
                     }   else {
                           echo "exit"
