@@ -22,7 +22,7 @@ pipeline {
                     if ("${action}" == 'apply') {
                         dir("WebServer/terraform") { 
                             withAWS(credentials: 'jenkins-aws') {
-                                sh "terraform output aws_eip | sed -e 's/\"//g' >> /var/jenkins_home/workspace/${JOB_NAME}/WebServer/ansible/inventory/webservers"                  
+                                sh "terraform output aws_eip | sed -e 's/\"//g' >> ${JENKINS_HOME}/${JOB_NAME}/WebServer/ansible/inventory/webservers"                  
                             }
                         }   
                    } else {
