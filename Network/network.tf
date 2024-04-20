@@ -56,4 +56,5 @@ resource "aws_vpc_security_group_egress_rule" "terraform-sg-egress_rule" {
 
 resource "aws_eip" "eip_terraform-ec2" {
   domain   = "vpc"
+  tags = "eip_terraform"
 }
