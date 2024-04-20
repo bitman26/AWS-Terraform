@@ -15,3 +15,10 @@ data "aws_security_group" "sg-terraform" {
     values = ["terraform-sg"]
   }  
 }
+
+data "aws_eip" "eip_terraform-ec2" {
+  filter {
+    name   = "tag:Name"
+    values = ["eip_terraform"]
+  }
+}
