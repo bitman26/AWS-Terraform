@@ -16,7 +16,7 @@ resource "aws_instance" "ec2" {
   tags = {
     Name = "terraform-debian-01"
   }
-  vpc_security_group_ids = [ "${data.aws_security_group.terraform-sg.id}" ]
+  vpc_security_group_ids = [ "${data.aws_security_group.sg-terraform.id}" ]
   #depends_on = [
    # aws_security_group.terraform-sg
   #]
