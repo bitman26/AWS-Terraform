@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "bit-tfstate-bucket"
+    bucket =   "
     key    = "aws-project/terraform-tfstate"
     region = "sa-east-1"
   }
